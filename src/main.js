@@ -1,18 +1,18 @@
 import React from 'react'
 import ReactDOM from 'react-dom'
-/* import {Provider} from 'react-redux'
-import store from './store/store'*/
+import {Provider} from 'react-redux'
+import store from './store'
 import { AppContainer } from 'react-hot-loader'
 import Route  from './router/route' 
 import './index.less'
 const render = Component =>{
         
     ReactDOM.render(
-    // <Provider store={store}>
+    <Provider store={store}>
       <AppContainer>
           <Component/>
-      </AppContainer>,
-    // </Provider>,
+      </AppContainer>
+    </Provider>,
     document.getElementById('app'))
 
 }
