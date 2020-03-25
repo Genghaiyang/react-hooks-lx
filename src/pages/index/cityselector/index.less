@@ -1,6 +1,7 @@
 .city-select-box {
-	width: 100%;
-	height: 100%;
+    width: 100%;
+    height: 100%;
+	overflow-y: scroll;
 	position: absolute;
 	top: 0;
 	left: 0;
@@ -49,25 +50,80 @@
 		top: 80px;
 		z-index: 2;
 		ul {
-            width: 100%;
-            li{
-                padding: 10px 20px;
-                border-bottom: 1px solid #eee;
-                color: #000;
-                font-size: 34px;
-            }
+			width: 100%;
+			li {
+				padding: 10px 20px;
+				border-bottom: 1px solid #eee;
+				color: #000;
+				font-size: 34px;
+			}
 		}
-    }
-    .city-list{
-        background-color: #ccc;
+	}
+	.city-list {
+		background-color: #fff;
 		position: absolute;
 		width: 100%;
 		bottom: 0;
 		left: 0;
 		top: 80px;
-        z-index: 1;
-        
-    }
+		z-index: 1;
+		.city-cate {
+            width: 90%;
+			ul {
+                width: 100%;
+                li{
+                    padding: 0 15px;
+                    margin-left: 30px;
+                    border-bottom: 1px solid #eee;
+                    height: 100px;
+                    color: #333;
+                    font-size: 35px;
+                    line-height: 100px;
+                    &:first-child{
+                        margin: 0;
+                        height: 70px;
+                        background-color: #f2f8fb;
+                        border: 0;
+                        line-height: 70px;
+                        font-size: 35px;
+                        color:#ccc;
+                        position: sticky;
+                        top:-1px;
+                    }
+                }
+                
+			}
+		}
+		.city-index {
+            width: 10%;
+            position: fixed;
+            top: 80px;
+            right: 0;
+            bottom: 0;
+            display: flex;
+            flex-direction:column;
+            justify-content:center;
+            align-items:center;
+            i{
+                flex:auto;
+                color: #00a8bc;
+            }
+		}
+	}
+
+	.city-list-loading {
+		background-color: #fff;
+		position: absolute;
+		width: 100%;
+		bottom: 0;
+		left: 0;
+		top: 80px;
+		z-index: 3;
+		.loading {
+			text-align: center;
+			padding: 180px 0 0 0;
+		}
+	}
 }
 .hidden {
 	display: none;

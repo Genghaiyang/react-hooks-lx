@@ -42,8 +42,8 @@ module.exports = {
             }
           }
         ],
-        include: [path.resolve(__dirname, '../src/assets/icon')],
-        exclude: /node_modules/
+        //include: [path.resolve(__dirname, '../src/assets/icon')],
+        //exclude: /node_modules/
       },
 
       {
@@ -62,8 +62,8 @@ module.exports = {
             }
           }
         ],
-        include: [path.resolve(__dirname, '../src/assets/media')],
-        exclude: /node_modules/
+        //include: [path.resolve(__dirname, '../src/assets/media')],
+        //exclude: /node_modules/
       },
 
       {
@@ -82,8 +82,8 @@ module.exports = {
             }
           }
         ],
-        include: [path.resolve(__dirname, '../src/assets/font')],
-        exclude: /node_modules/
+        //include: [path.resolve(__dirname, '../src/assets/font')],
+        //exclude: /node_modules/
       },
 
       {
@@ -97,8 +97,8 @@ module.exports = {
           'babel-loader',
           // 'eslint-loader',
         ],
-        exclude: /node_modules/,
-        include: /src/
+        //exclude: /node_modules/,
+        //include: /src/
       },
     ]
   }

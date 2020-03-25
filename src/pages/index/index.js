@@ -5,6 +5,8 @@ import Header from '../../components/header'
 import Journey from './journey'
 import actions from '../../actions'
 import CitySelector from './cityselector'
+import DepartDate from './date'
+import DateSelector from './dateSelector'
 import './index.less'
 function App(props) {
 	const {
@@ -57,14 +59,14 @@ function App(props) {
 	})
 
 	const fetchCityData = useCallback(() => {
-        const cache = JSON.parse(
-            localStorage.getItem('city_data_cache') || '{}'
-        );
-        //console.log(cbs.setIsLoadingCityData)
-        if (Date.now() < cache.expires) {
-            cbs.setCityData(cache.data)
-            return;
-        }
+		const cache = JSON.parse(
+			localStorage.getItem('city_data_cache') || '{}'
+		)
+		//console.log(cbs.setIsLoadingCityData)
+		if (Date.now() < cache.expires) {
+			cbs.setCityData(cache.data)
+			return
+		}
 		cbs.setIsLoadingCityData(true)
 		fetch('/rest/cities?_' + Date.now())
 			.then(res => res.json())
@@ -76,13 +78,18 @@ function App(props) {
 						expires: Date.now() + 60 * 1000,
 						data: cityData
 					})
-                )
-                cbs.setIsLoadingCityData(false)
+				)
+				cbs.setIsLoadingCityData(false)
 			})
 			.catch(() => {
-                cbs.setIsLoadingCityData(false)
-                alert('数据加载失败，请刷新重试！')
-            })
+				cbs.setIsLoadingCityData(false)
+				alert('数据加载失败，请刷新重试！')
+			})
+	})
+
+	const setSelectedCity = useCallback(city => {
+        currentSelectingLeftCity ? cbs.setFrom(city) : cbs.setTo(city)
+        cbs.setCitySelectorVisible(false)
 	})
 
 	return (
@@ -95,17 +102,21 @@ function App(props) {
 					exchangeFromTo={exchangeFromTo}
 					showCitySelector={showCitySelector}
 				/>
-				{/* <DepartDate />
-				<HighSpeed />
+				<DepartDate />
+				{/* <HighSpeed />
 				<Submit /> */}
 			</div>
 			<CitySelector
 				show={isCitySelectorVisible}
 				cityData={cityData}
 				isLoadingCityData={isLoadingCityData}
-                hideCitySelector={()=>{cbs.setCitySelectorVisible(false)}}
+				hideCitySelector={() => {
+					cbs.setCitySelectorVisible(false)
+				}}
                 fetchCityData={fetchCityData}
+                setSelectedCity={setSelectedCity}
 			/>
+            {/* <DateSelector /> */}
 		</div>
 	)
 }

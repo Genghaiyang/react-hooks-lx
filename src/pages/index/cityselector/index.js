@@ -2,16 +2,16 @@ import React, { useCallback, useMemo, useState, useRef, useEffect } from 'react'
 import { Spin } from 'antd'
 import { LeftOutlined, CloseCircleOutlined } from '@ant-design/icons'
 
-//import 'antd/dist/antd.less'
+import 'antd/dist/antd.less'
 import './index.less'
 function TopLine(props) {
 	const [inputValue, setInputValue] = useState('')
 	const [closebtnShow, setClosebtnShow] = useState(false)
 	const couterRef = useRef()
-	const { hide, setSuggest } = props
+	const { hide, setSuggest,setSearchKey } = props
 
 	const handleChange = useCallback(() => {
-		//console.log(couterRef.current.value)
+		setSearchKey(couterRef.current.value)
 		setInputValue(couterRef.current.value)
 		couterRef.current.value != '' ? setSuggest(true) : setSuggest(false)
 		couterRef.current.value != ''
@@ -50,23 +50,101 @@ function TopLine(props) {
 	)
 }
 
-function Suggest() {
+function Suggest(props) {
+    const { setSelectedCity,searchKey } = props
+    const [searchList,setSearchList] = useState([])
+    useEffect(() => {
+        fetch('/rest/search?key=' + encodeURIComponent(searchKey))
+            .then(res => res.json())
+            .then(data => {
+                const { result, searchKey: sKey } = data
+
+                if (sKey === searchKey) {
+                    setSearchList(result)
+                }
+            })
+        
+    }, [searchKey])
 	return (
 		<div className="city-suggest">
-			<ul>
-				<li>郑州</li>
-				<li>郑州</li>
-				<li>郑州</li>
+			<ul>				
+				{searchList.map(data => {
+				return <li key={data.key} onClick={()=>{setSelectedCity(data.display)}}>{data.display}</li>
+			})}
 			</ul>
 		</div>
 	)
 }
 
-function CityList() {
+function CityList(props) {
+    const { cityData,setSelectedCity } = props
+    const toAlpha = useCallback(alpha => {
+        document.querySelector(`[data-cate='${alpha}']`).scrollIntoView();
+    }, []);
 	return (
 		<div className="city-list">
-            <Spin tip="Loading..." />
-			
+			<div className="city-cate">
+				{cityData.cityList.map(citysection => {
+					return (
+						<CitySection
+							key={citysection.title}
+							title={citysection.title}
+                            data={citysection.citys}
+                            setSelectedCity={setSelectedCity}
+						/>
+					)
+				})}
+			</div>
+			<div className="city-index">
+				{alphabet.map(alpha => {
+					return (
+						<AlphaIndex
+							key={alpha}
+                            alpha={alpha}
+                            handleClick={toAlpha}
+						/>
+					)
+				})}
+			</div>
+		</div>
+	)
+}
+
+function CitySection(props) {
+	const { data = [], title ,setSelectedCity } = props
+	return (
+		<ul>
+			<li data-cate={title} key={title}>
+				{title}
+			</li>
+			{data.map(city => {
+				return <CityItem key={city.name} cityname={city.name} setSelectedCity={setSelectedCity}/>
+			})}
+		</ul>
+	)
+}
+
+function CityItem(props) {
+	const { cityname,setSelectedCity } = props
+	return <li onClick={()=>{setSelectedCity(cityname)}}>{cityname}</li>
+}
+
+function AlphaIndex(props) {
+	const { alpha,handleClick } = props
+	return <i onClick={()=>{handleClick(alpha)}}>{alpha}</i>
+}
+
+const alphabet = Array.from(new Array(26), (ele, index) => {
+	return String.fromCharCode(65 + index)
+})
+
+
+function CityListLoading() {
+	return (
+		<div className="city-list-loading">
+			<div className="loading">
+				<Spin tip="Loading..." size="large" />
+			</div>
 		</div>
 	)
 }
@@ -77,9 +155,11 @@ function CitySelector(props) {
 		hideCitySelector,
 		isLoadingCityData,
 		cityData,
-		fetchCityData
+        fetchCityData,
+        setSelectedCity
 	} = props
-	const [suggestShowHide, setSuggestShowHide] = useState(false)
+    const [suggestShowHide, setSuggestShowHide] = useState(false)
+    const [searchKey, setSearchKey] = useState('')
 	useEffect(() => {
 		if (!show || cityData || isLoadingCityData) {
 			return
@@ -94,9 +174,10 @@ function CitySelector(props) {
 
 	return (
 		<div className={cssName}>
-			<TopLine hide={hideCitySelector} setSuggest={setSuggestShowHide} />
-			{suggestShowHide && <Suggest />}
-			<CityList />
+			<TopLine hide={hideCitySelector} setSearchKey={setSearchKey} setSuggest={setSuggestShowHide} />
+			{suggestShowHide && <Suggest setSelectedCity={setSelectedCity} searchKey={searchKey} />}
+			{isLoadingCityData && <CityListLoading />}
+			{cityData && <CityList cityData={cityData} setSelectedCity={setSelectedCity}/>}
 		</div>
 	)
 }
