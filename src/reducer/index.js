@@ -1,3 +1,4 @@
+import useDateFormat from '../utils/useDateFormat'
 const initStore = {
 	from: '北京',
 	to: '上海',
@@ -5,8 +6,9 @@ const initStore = {
 	currentSelectingLeftCity: false,
 	cityData: null,
 	isLoadingCityData: false,
-	isDateSelectorVisible: false,
-	departDate: Date.now(),
+	//isDateSelectorVisible: false,
+	//departDate: ['2020-03-26','星期四'],
+	departDate: useDateFormat(Date.now()),
 	highSpeed: false
 }
 const index = (state = initStore, action) => {
@@ -48,6 +50,18 @@ const index = (state = initStore, action) => {
 			return {
 				...state,
 				isLoadingCityData: action.payload
+			}
+
+		case 'ACTION_SET_DATE':
+			return {
+				...state,
+				departDate: action.payload
+			}
+
+		case 'ACTION_SET_HIGHSPEED':
+			return {
+				...state,
+				highSpeed: action.payload
 			}
 
 		default:

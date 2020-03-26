@@ -6,14 +6,15 @@ import Journey from './journey'
 import actions from '../../actions'
 import CitySelector from './cityselector'
 import DepartDate from './date'
-import DateSelector from './dateSelector'
+import HighSpeed from './highspeed'
+import Submit from './submit'
 import './index.less'
 function App(props) {
 	const {
 		from,
 		to,
 		isCitySelectorVisible,
-		isDateSelectorVisible,
+		//isDateSelectorVisible,
 		cityData,
 		isLoadingCityData,
 		highSpeed,
@@ -27,11 +28,13 @@ function App(props) {
 		setCitySelectorVisible,
 		setCityFromLeft,
 		setCityData,
-		setIsLoadingCityData
+        setIsLoadingCityData,
+        setDate,
+        setHighSpeed
 	} = actions
 	const onBack = useCallback(() => {
 		//props.history.goBack()
-		console.log(exchangeFromTo)
+		console.log('首页')
 	}, [])
 
 	const cbs = useMemo(() => {
@@ -42,7 +45,9 @@ function App(props) {
 				setCitySelectorVisible,
 				setCityFromLeft,
 				setCityData,
-				setIsLoadingCityData
+                setIsLoadingCityData,
+                setDate,
+                setHighSpeed
 			},
 			dispatch
 		)
@@ -102,9 +107,9 @@ function App(props) {
 					exchangeFromTo={exchangeFromTo}
 					showCitySelector={showCitySelector}
 				/>
-				<DepartDate />
-				{/* <HighSpeed />
-				<Submit /> */}
+				<DepartDate departDate={departDate} setDate={cbs.setDate}/>
+				<HighSpeed setSwitch={cbs.setHighSpeed} SwitchBool={highSpeed}/>
+				<Submit />
 			</div>
 			<CitySelector
 				show={isCitySelectorVisible}
@@ -116,7 +121,7 @@ function App(props) {
                 fetchCityData={fetchCityData}
                 setSelectedCity={setSelectedCity}
 			/>
-            {/* <DateSelector /> */}
+            
 		</div>
 	)
 }

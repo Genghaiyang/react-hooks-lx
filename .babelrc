@@ -2,7 +2,8 @@
     "plugins": [
        ["react-hot-loader/babel"],
        ["@babel/proposal-function-bind"],
-       ["@babel/proposal-class-properties"]
+       ["@babel/proposal-class-properties"],
+       ["import", { "libraryName": "antd-mobile", "style": "css" }]
      ],
      "presets": [
        "@babel/env",

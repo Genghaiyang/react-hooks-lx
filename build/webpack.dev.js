@@ -34,6 +34,11 @@ module.exports = WebpackMerge(webpackConfig, {
 				include: [path.resolve(__dirname, '../src')],
 				exclude: /node_modules/,
 				use: ['style-loader', 'css-loader']
+            },
+            {
+				test: /\.css$/,
+				include: [path.resolve(__dirname, '../node_modules')],
+				use: ['style-loader', 'css-loader']
 			},
 			{
 				test: /\.less$/,
