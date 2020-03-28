@@ -26,8 +26,8 @@ function DepartDate(props) {
 
 	const handleConfirm = useCallback((startTime, endTime) => {
 		
-        //setDateNum(dateFormat(startTime))
-        setDate(useDateFormat(startTime))
+        //setDate(useDateFormat(startTime))
+        setDate(startTime.getTime())
         setCalendarVisible(false)
 	})
 
@@ -40,8 +40,8 @@ function DepartDate(props) {
 				}}
 			>
 				<input type="hidden" name="date" value="2020-03-25" />
-				<b>{departDate[0]}</b>
-				<span>{departDate[1]}</span>
+				<b>{useDateFormat(departDate)[0]}</b>
+				<span>{useDateFormat(departDate)[1]}</span>
 			</div>
 			
 

@@ -8,7 +8,8 @@ const initStore = {
 	isLoadingCityData: false,
 	//isDateSelectorVisible: false,
 	//departDate: ['2020-03-26','星期四'],
-	departDate: useDateFormat(Date.now()),
+    //departDate: useDateFormat(Date.now()),
+    departDate: Date.now(),
 	highSpeed: false
 }
 const index = (state = initStore, action) => {

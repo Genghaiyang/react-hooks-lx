@@ -129,6 +129,8 @@ const mapStateToProps = state => ({
 	state
 })
 const mapDispatchToProps = dispatch => ({
-	dispatch
+    dispatch,
+    /* setDate:()=>{cbs.setDate},
+    setHighSpeed:()=>{cbs.setHighSpeed} */
 })
 export default connect(mapStateToProps, mapDispatchToProps)(App)
