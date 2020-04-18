@@ -1,0 +1,99 @@
+.filters-content {
+	width: 100%;
+	position: absolute;
+	left: 0;
+	bottom: 120px;
+	top: 120px;
+	background-color: #f5f5f5;
+	display: flex;
+	flex-direction: column;
+	.title-line {
+		width: 100%;
+		padding: 0 40px;
+		height: 80px;
+		background-color: #fff;
+		flex: none;
+		display: flex;
+		justify-content: space-between;
+		align-items: center;
+		color: #3cc;
+		font-size: 32px;
+		margin-bottom: 0;
+		.disabled {
+			color: #d9d9d9;
+		}
+	}
+	.filters-options {
+		width: 100%;
+        flex: auto;
+        overflow-y: scroll;
+		.name {
+			margin-bottom: 0;
+			height: 55px;
+			padding-left: 40px;
+			line-height: 55px;
+			color: #666;
+        }
+        .times{
+            input{
+                float: right;
+                margin-right: 40px;
+                border:0;
+                line-height: 55px;
+                background: none;
+                width: 150px;
+            }
+        }
+        .range{
+            width: 100%;
+            overflow: hidden;
+            height: 120px;
+            line-height: 120px;
+            background-color: #fff;
+        }
+		ul {
+			width: 100%;
+			background-color: #fff;
+			display: flex;
+			justify-content: space-around;
+            align-items: center;
+            flex-wrap:wrap;
+            margin-bottom: 0;
+            li{
+                width: 26%;
+                height: 70px;
+                border: 1px solid #d9d9d9;
+                text-align: center;
+                line-height: 70px;
+                color: #000;
+                border-radius: 10px;
+                margin: 20px 0;
+                font-size: 26px;
+            }
+            .checked{
+                background-color: #3cc;
+                color: #fff;
+                border: 1px solid #3cc;
+            }
+		}
+	}
+}
+
+ .am-slider-wrapper {
+    margin: 60px 0 0;
+  }
+ .am-slider-example {
+    overflow: hidden;
+  }
+  .am-wingblank.am-wingblank-lg {
+    margin: 30px 0;
+  }
+ .am-slider-wrapper:last-child {
+    margin-bottom: 10px;
+  }
+  .sub-title {
+    color: #888;
+    font-size: 14px;
+    padding: 30px 0 18px 0;
+    margin: 0;
+  }
