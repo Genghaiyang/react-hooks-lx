@@ -22,6 +22,17 @@ function Query(props) {
 		setTrainType,
 		setDepstation,
 		setArrstation,
+		setFiltersVisible,
+		setCheckedTicketTypes,
+		setCheckedTrainTypes,
+		setCheckedDepartStations,
+		setCheckedArriveStations,
+		setDepartTimeStart,
+		setDepartTimeEnd,
+		setArriveTimeStart,
+		setArriveTimeEnd,
+		setOrderType,
+		setOnlyTickets,
 	} = actions
 
 	const { setDate, setHighSpeed } = actionsIndex
@@ -39,6 +50,17 @@ function Query(props) {
 		trainType,
 		depStation,
 		arrStation,
+		isFiltersVisible,
+		orderType,
+		onlyTickets,
+		departTimeStart,
+		departTimeEnd,
+		arriveTimeStart,
+		arriveTimeEnd,
+		checkedTicketTypes,
+		checkedTrainTypes,
+		checkedDepartStations,
+		checkedArriveStations,
 	} = props.state.query
 	const onBack = useCallback(() => {
 		props.history.goBack()
@@ -56,6 +78,8 @@ function Query(props) {
 				setTrainType,
 				setDepstation,
 				setArrstation,
+				setOrderType,
+				setOnlyTickets,
 			},
 			dispatch
 		)
@@ -69,6 +93,15 @@ function Query(props) {
 				setTrainType,
 				setDepstation,
 				setArrstation,
+				setFiltersVisible,
+				setCheckedTicketTypes,
+				setCheckedTrainTypes,
+				setCheckedDepartStations,
+				setCheckedArriveStations,
+				setDepartTimeStart,
+				setDepartTimeEnd,
+				setArriveTimeStart,
+				setArriveTimeEnd,
 			},
 			dispatch
 		)
@@ -103,7 +136,20 @@ function Query(props) {
 				filterCbs.setDepstation(depStation)
 				filterCbs.setArrstation(arrStation)
 			})
-	}, [departDate, highSpeed])
+	}, [
+		departDate,
+		highSpeed,
+		orderType,
+		onlyTickets,
+		departTimeStart,
+		departTimeEnd,
+		arriveTimeStart,
+		arriveTimeEnd,
+		checkedTicketTypes,
+		checkedTrainTypes,
+		checkedDepartStations,
+		checkedArriveStations,
+	])
 
 	const prevClick = useCallback(() => {
 		const now = useTimeClear()
@@ -132,15 +178,34 @@ function Query(props) {
 				/>
 				<TrainList trains={trains} />
 			</div>
-			<Filter
-				{...filterCbs}
-				ticketType={ticketType}
-				trainType={trainType}
-				depStation={depStation}
-				arrStation={arrStation}
-			/>
+			{isFiltersVisible && (
+				<Filter
+					{...filterCbs}
+					ticketType={ticketType}
+					trainType={trainType}
+					depStation={depStation}
+					arrStation={arrStation}
+					checkedArriveStations={checkedArriveStations}
+					departTimeStart={departTimeStart}
+					departTimeEnd={departTimeEnd}
+					arriveTimeStart={arriveTimeStart}
+					arriveTimeEnd={arriveTimeEnd}
+					checkedTicketTypes={checkedTicketTypes}
+					checkedTrainTypes={checkedTrainTypes}
+					checkedDepartStations={checkedDepartStations}
+				/>
+			)}
 
-			<Footer highSpeed={highSpeed} />
+			<Footer
+				highSpeed={highSpeed}
+				setHighSpeed={cbs.setHighSpeed}
+				orderType={orderType}
+				setOrderType={cbs.setOrderType}
+				onlyTickets={onlyTickets}
+				setOnlyTickets={cbs.setOnlyTickets}
+				isFiltersVisible={isFiltersVisible}
+				setFiltersVisible={filterCbs.setFiltersVisible}
+			/>
 		</div>
 	)
 }
